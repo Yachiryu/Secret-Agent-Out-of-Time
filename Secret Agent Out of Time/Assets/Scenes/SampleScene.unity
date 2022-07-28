@@ -618,6 +618,7 @@ GameObject:
   - component: {fileID: 2141010964}
   - component: {fileID: 2141010967}
   - component: {fileID: 2141010968}
+  - component: {fileID: 2141010969}
   m_Layer: 0
   m_Name: Personaje
   m_TagString: Untagged
@@ -734,7 +735,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -761,3 +762,23 @@ MonoBehaviour:
   controladorSuelo: {fileID: 1568038884}
   dimensionesCaja: {x: 1, y: 0.25, z: 0}
   enSuelo: 0
+--- !u!95 &2141010969
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141010963}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 70be1a67b8036cd43832a2897e852c0d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
