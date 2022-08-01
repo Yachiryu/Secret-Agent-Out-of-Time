@@ -41,9 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Fondo
-    uniqueID: 1603496541
-    locked: 0
-  - name: Suelo
-    uniqueID: 4235893101
+  - name: Agua
+    uniqueID: 3548880035
     locked: 0
