@@ -1,28 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+
+[System.Serializable]
+public class LimitesPantalla 
+{
+   public float xMinL, xMaxL, yMinL, yMaxL;
+}
 
 public class MovimientoNave : MonoBehaviour
 {
+    public LimitesPantalla limitMov;
+
     private Rigidbody2D rigidB2d;
-    private Vector3 velocidad = Vector3.zero;
+    [SerializeField]
+    [Range(3,10)] int multVelocidad;
 
-    [SerializeField][Range(0.05f, 0.3f)] private float suavizadoDeMovimiento;
-    [SerializeField] private float velocidadMovimiento;
-
-
-    private void Start()
-    {
-        rigidB2d = GetComponent<Rigidbody2D>();
-    }
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform bulletSpawn;
+    [SerializeField] float fireRate, nextFire;
 
     private void Update()
     {
-        float movimientoHorizontal = Input.GetAxisRaw("Horizontal") * Time.deltaTime;
-        float movimientoVertical = Input.GetAxisRaw("Vertical") * Time.deltaTime;
+        if (Input.GetKey(KeyCode.Space) && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(bullet,bulletSpawn.position, Quaternion.identity);
+        }
 
-        Vector3 velocidadObjetivo = new Vector2(movimientoHorizontal, movimientoVertical);
-        rigidB2d.velocity = Vector3.SmoothDamp(rigidB2d.velocity, velocidadObjetivo, ref velocidad, suavizadoDeMovimiento);
+        /*Debug.Log("tiempo" + Time.time);
+        Debug.Log("proximo disparo" + nextFire);*/
+        
     }
+
+    private void Awake()
+    {
+        rigidB2d = GetComponent<Rigidbody2D>();
+    }
+   
+    private void FixedUpdate()
+    {
+        LimiteMov();
+
+        float horizontalMove = Input.GetAxisRaw("Horizontal");
+        float verticalMove = Input.GetAxisRaw("Vertical");
+
+        Vector2 movement = new Vector2(horizontalMove, verticalMove).normalized;
+        rigidB2d.velocity = movement * multVelocidad;
+    }
+
+    public void LimiteMov()
+    {
+        rigidB2d.position = new Vector2(Mathf.Clamp(rigidB2d.position.x, limitMov.xMinL, limitMov.xMaxL),
+        Mathf.Clamp(rigidB2d.position.y, limitMov.yMinL, limitMov.yMaxL));
+    }
+
+   
 }
 
