@@ -14,7 +14,7 @@ public class Dialogos_Scrip : MonoBehaviour
     void Start()
     {
         dialogueText.text = string.Empty;
-        StartDialogue();
+        //StartDialogue();
     }
 
     void Update()
@@ -37,7 +37,6 @@ public class Dialogos_Scrip : MonoBehaviour
     {
         index = 0;
         StartCoroutine(WriteLine());
-
     }
 
     IEnumerator WriteLine()
