@@ -15,8 +15,10 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
 
     private Animator anim;
+    [SerializeField] float numSalto;
 
-    private bool isFacingRight;
+    private bool isFacingRight, enSuelo;
+    bool jump = false;
 
 
     private void Start()
@@ -45,7 +47,15 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
         }
-
+        if (!isGrounded())
+        {
+            rb.gravityScale = 2;
+        }
+        if (isGrounded())
+        {
+            StartCoroutine(isJumping());
+        }
+      
         anim.SetBool("isJumping", !isGrounded());
 
         if (!isFacingRight && move > 0)
@@ -80,6 +90,12 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position -transform.up * castDistance, boxSize);
+    }
+    IEnumerator isJumping()
+    {
+        yield return new WaitForSeconds(1);
+        rb.gravityScale = 1;
+        yield break;
     }
 
 
