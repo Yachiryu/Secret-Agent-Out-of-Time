@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - ZoneLimit
+  - Suelo
+  - Enemigo
+  - Checkpoint
+  - FallDetector
   layers:
   - Default
   - TransparentFX
