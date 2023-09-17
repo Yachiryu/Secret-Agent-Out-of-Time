@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Parámetros movimiento")]
-    private Rigidbody2D rb;
-    private float move;
+    public Rigidbody2D rb;
+    public float move;
     public float velocidad;
     public float salto;
 
@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
+
     }
 
     public void Flip()

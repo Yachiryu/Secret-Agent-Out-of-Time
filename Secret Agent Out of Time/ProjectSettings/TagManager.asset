@@ -9,6 +9,7 @@ TagManager:
   - Enemigo
   - Checkpoint
   - FallDetector
+  - ZonaDialogo
   layers:
   - Default
   - TransparentFX
