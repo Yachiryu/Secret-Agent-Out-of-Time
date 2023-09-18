@@ -14,11 +14,14 @@ public class MovimientoNave : MonoBehaviour
     public LimitesPantalla limitMov;
 
     private Rigidbody2D rigidB2d;
+    Animator animator;
+    AudioSource audioSource;
     [SerializeField]
     [Range(3,10)] int multVelocidad;
 
     [SerializeField] GameObject bullet;
     [SerializeField] Transform bulletSpawn;
+    [SerializeField] Transform bulletSpawn2;
     [SerializeField] float fireRate, nextFire;
 
     private void Update()
@@ -27,6 +30,13 @@ public class MovimientoNave : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
             Instantiate(bullet,bulletSpawn.position, Quaternion.identity);
+            Instantiate(bullet,bulletSpawn2.position, Quaternion.identity);
+            audioSource.Play();
+            animator.SetBool("IsShooting", true);
+        }
+        else
+        {
+            animator.SetBool("IsShooting", false);
         }
 
         /*Debug.Log("tiempo" + Time.time);
@@ -36,6 +46,8 @@ public class MovimientoNave : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
         rigidB2d = GetComponent<Rigidbody2D>();
     }
    
