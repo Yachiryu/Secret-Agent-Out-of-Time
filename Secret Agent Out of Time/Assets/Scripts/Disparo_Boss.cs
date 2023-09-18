@@ -24,6 +24,7 @@ public class Disparo_Boss : MonoBehaviour
             Shoot();
             timeSinceLastShot = 0.0f;
         }
+
     }
 
     void Shoot()
