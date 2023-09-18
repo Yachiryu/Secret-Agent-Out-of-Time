@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5226390895778034974}
   - component: {fileID: 5226390895778034968}
   - component: {fileID: 5226390895778034969}
+  - component: {fileID: 5921607086994041555}
   m_Layer: 0
   m_Name: fireball-red-tail-med
   m_TagString: Untagged
@@ -114,9 +115,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5226390895778034973}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e302d709c835d024880e61174ede34a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  explosionPref: {fileID: 7619597468208790883, guid: e4db4c5fedbbc9646b6b06f5b1e8b6b5, type: 3}
+--- !u!70 &5921607086994041555
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5226390895778034973}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0011642465, y: 0.037251282}
+  m_Size: {x: 0.07000001, y: 0.16000001}
+  m_Direction: 0

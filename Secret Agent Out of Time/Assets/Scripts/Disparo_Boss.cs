@@ -33,7 +33,7 @@ public class Disparo_Boss : MonoBehaviour
 
         // Ajusta la velocidad de la bala para que sea vertical
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(0, bulletSpeed);
+        rb.velocity = new Vector2(0, -bulletSpeed);
 
         // Destruye la bala después de un tiempo
         Destroy(bullet, bulletLifetime);

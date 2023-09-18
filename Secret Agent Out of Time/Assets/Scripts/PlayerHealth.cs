@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class PlayerHealth : MonoBehaviour
     private void Update()
     {
         healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
-
         if (health <= 0)
         {
             Death();
@@ -32,9 +32,6 @@ public class PlayerHealth : MonoBehaviour
     public void Death()
     {
         Instantiate(muerte, transform.position, Quaternion.identity);
-        //deathpanel.SetActive(true);
-        Destroy(torretas);
-        Destroy(gameObject); 
-
+        SceneManager.LoadScene("Lvl_2");
     }
 }

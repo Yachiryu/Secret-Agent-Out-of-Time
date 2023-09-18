@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Bala_Boss : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    public float speed;
-
-    private void Start()
+    [SerializeField] GameObject explosionPref;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
+        if (collision.CompareTag("ZoneLimit")) return;
 
-    private void Update()
-    {
-        rb.velocity = new Vector2(0, -speed);
+        Instantiate(explosionPref, transform.position, Quaternion.identity);
+        if (collision.CompareTag("Player"))
+        {
+            Instantiate(explosionPref, collision.transform.position, Quaternion.identity);
+        }
+        Destroy(collision.gameObject);
+        //Destroy(gameObject);
     }
 }
