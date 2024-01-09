@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: "Assets/Scenes/Men\xFAs/MenuPrincipal.unity"
     guid: b7bdf5239ee7ba349b230feeca482c18
   - enabled: 1
-    path: Assets/Scenes/Lvl_2.unity
+    path: Assets/Scenes/Niveles/Nivel_1.unity
     guid: 986255a81cce67444a0853934da4ca3b
   m_configObjects: {}

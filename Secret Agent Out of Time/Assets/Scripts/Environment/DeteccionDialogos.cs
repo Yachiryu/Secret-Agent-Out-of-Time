@@ -18,12 +18,15 @@ public class DeteccionDialogos : MonoBehaviour
     {
         if (collision.CompareTag("ZonaDialogo"))
         {
-            animator.SetBool("isRunning", false);
+            animator.SetFloat("isRuning",0);
+            animator.SetBool("isFalling", false);
             animator.SetBool("isJumping", false);
+
+
             GetComponent<PlayerMovement>().enabled = false;
-            playerMove.rb.velocity = new Vector2(0,0);
             GetComponent<PlayerShoot>().enabled = false;
             
+            playerMove.rb.velocity = new Vector2(0,0);
         }
         else
         {

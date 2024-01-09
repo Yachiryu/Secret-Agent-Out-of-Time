@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
-    [SerializeField] private Transform controladorDisparo;
+    PlayerMovement playerMovement;
+    [SerializeField] private Transform disparonormal;
+    [SerializeField] private Transform disparoAgachado;
     [SerializeField] private GameObject bala;
 
+    private void Awake()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+    }
     private void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -17,6 +23,15 @@ public class PlayerShoot : MonoBehaviour
 
     private void Disparo()
     {
-        Instantiate(bala, controladorDisparo.position, controladorDisparo.rotation);
+        if (playerMovement.isCrouched == false)
+        {
+            Instantiate(bala, disparonormal.position, disparonormal.rotation);
+            Debug.Log("DisparoParado");
+        }
+        else
+        {
+            Instantiate(bala, disparoAgachado.position, disparoAgachado.rotation);
+            Debug.Log("DisparoAgacahdo");
+        }
     }
 }

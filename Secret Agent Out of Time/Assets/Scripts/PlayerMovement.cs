@@ -1,3 +1,4 @@
+using Fungus;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,45 +19,71 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float numSalto;
 
     private bool isFacingRight, enSuelo;
-    bool jump = false;
+    //bool jump = false;
+    public bool isCrouched = false;
 
-
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+    }
     private void Start()
     {
         isFacingRight = true;
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+    }
+    private void FixedUpdate()
+    {
+        // Condiciones y fisicas del salto personaje
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() || Input.GetAxis("Vertical") > 0.1 && IsGrounded())
+        {
+            anim.SetBool("isJumping", true);
+            rb.AddForce(new Vector2(rb.velocity.x, salto * 10));
+        }
+
+        // Fisicas movimiento del personaje
+        rb.velocity = new Vector2(move * velocidad, rb.velocity.y);
     }
 
     private void Update()
     {
+        //Debug.Log(Input.GetAxis("Vertical") + "Input vertical" );/////////////////
+
         move = Input.GetAxisRaw("Horizontal");
 
-        rb.velocity = new Vector2(move * velocidad, rb.velocity.y);
+        anim.SetFloat("isRuning", Mathf.Abs(move));
 
-        if (Input.GetButtonDown("Vertical") && isGrounded())
+        if(IsGrounded()) 
         {
-            rb.AddForce(new Vector2(rb.velocity.x, salto * 10));
+            anim.SetBool("isJumping", false);
+            anim.SetBool("isFalling", false);
         }
 
-        if (move != 0)
+        if (!IsGrounded())
+        {
+            anim.SetBool("isFalling", true);
+            //anim.SetBool("isJumping", true);
+        } 
+
+        IsCrouching();
+
+        /*if (move != 0)
         {
             anim.SetBool("isRunning", true);
         }
         else
         {
             anim.SetBool("isRunning", false);
-        }
-        if (!isGrounded())
+        }*/
+        if (!IsGrounded())
         {
             rb.gravityScale = 2;
         }
-        if (isGrounded())
+        if (IsGrounded())
         {
-            StartCoroutine(isJumping());
+            StartCoroutine(IsJumping());
         }
-      
-        anim.SetBool("isJumping", !isGrounded());
+
+        //anim.SetBool("isJumping", !isGrounded());
 
         if (!isFacingRight && move > 0)
         {
@@ -69,6 +96,22 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void IsCrouching() 
+    {
+        if (Input.GetAxis("Vertical") <= -0.1 && IsGrounded() 
+            && move == Mathf.Clamp((Input.GetAxisRaw("Horizontal")),-0.1f,0.1f))
+        {
+            isCrouched = true;
+            anim.SetBool("isCrouching", true);
+
+        }
+        else
+        {
+            isCrouched = false;
+            anim.SetBool("isCrouching", false); 
+        }
+    }
+
     public void Flip()
     {
         isFacingRight = !isFacingRight;
@@ -76,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
     }
 
-    public bool isGrounded()
+    public bool IsGrounded()
     {
         if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer))
         {
@@ -92,15 +135,12 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.DrawWireCube(transform.position -transform.up * castDistance, boxSize);
     }
-    IEnumerator isJumping()
+
+    IEnumerator IsJumping()
     {
         yield return new WaitForSeconds(1);
         rb.gravityScale = 1;
         yield break;
     }
-
-
-
-
-
+ 
 }
